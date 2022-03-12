@@ -1,44 +1,44 @@
-let app = document.querySelector('#root')
+let app = document.querySelector('#root') 
 
-
+//Add container
 let container = document.createElement('div')
 container.setAttribute('class', 'container')
 app.appendChild(container)
 
+fetch('https://fakestoreapi.com/products') // API adress
 
-fetch('https://fakestoreapi.com/products')
+// Obtaining data from API
 .then((res)=>{
     return res.json()
 }).then((data)=>{
-    data.forEach(clothes => {
+    data.forEach(store => {
         let chip =document.createElement('div')
         chip.setAttribute('class','chip')
         container.appendChild(chip)
 
-        let title= document.createElement('h1')
-        title.textContent = clothes.title
+        // images addition
+        let image = document.createElement('img')
+        image.src = store.image
+        chip.appendChild(image)
+
+        // title addition
+        let title= document.createElement('h2')
+        title.textContent = store.title
         chip.appendChild(title)
 
-        let category = document.createElement('h2')
-        category.textContent=clothes.category
+        // category addition
+        let category = document.createElement('h3')
+        category.textContent=store.category
         chip.appendChild(category)
 
-
+        // description addition
         let description = document.createElement('p')
-        description.textContent=clothes.description
+        description.textContent=store.description
         chip.appendChild(description)
 
-        
+        // price addition
         let price = document.createElement('p')
-        price.textContent=clothes.price
+        price.textContent=store.price
         chip.appendChild(price)
-
-    
-
-        let image = document.createElement('img')
-        image.src = clothes.image
-        chip.appendChild(image)
- 
- 
     });
 }).catch(error=> console.log(error))
